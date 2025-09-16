@@ -1,4 +1,3 @@
-// src/controllers/ia.controller.js
 const { generarResumenDescripciones } = require('../services/ia.service');
 
 exports.analizarProyectos = async (req, res) => {
