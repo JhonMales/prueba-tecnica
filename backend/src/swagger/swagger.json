@@ -1,0 +1,160 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Proyectos",
+    "version": "1.0.0",
+    "description": "API REST para gestionar proyectos, incluye resumen con IA y estadísticas."
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000/api"
+    }
+  ],
+  "paths": {
+    "/proyectos": {
+      "get": {
+        "summary": "Listar todos los proyectos",
+        "responses": {
+          "200": {
+            "description": "Lista de proyectos"
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear un nuevo proyecto",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Proyecto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Proyecto creado"
+          }
+        }
+      }
+    },
+    "/proyectos/{id}": {
+      "get": {
+        "summary": "Obtener un proyecto por ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Proyecto encontrado"
+          },
+          "404": {
+            "description": "Proyecto no encontrado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualizar un proyecto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Proyecto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Proyecto actualizado"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un proyecto",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Proyecto eliminado"
+          }
+        }
+      }
+    },
+    "/analisis": {
+      "get": {
+        "summary": "Generar un resumen con IA",
+        "responses": {
+          "200": {
+            "description": "Resumen generado"
+          }
+        }
+      }
+    },
+    "/graficos": {
+      "get": {
+        "summary": "Obtener cantidad de proyectos por estado",
+        "responses": {
+          "200": {
+            "description": "Datos agregados por estado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Proyecto": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string"
+          },
+          "descripcion": {
+            "type": "string"
+          },
+          "estado": {
+            "type": "string",
+            "example": "En progreso"
+          },
+          "fechaInicio": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fechaFin": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["nombre", "descripcion", "estado", "fechaInicio", "fechaFin"]
+      }
+    }
+  }
+}
